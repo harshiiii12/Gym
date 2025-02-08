@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trans Fit Zone Gym</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            padding: 20px;
+            height: 1000vh;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .link-button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            color: white;
+            background-color: #ff5733;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .link-button:hover {
+            background-color: #c70039;
+        }
+        .popup-image {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .popup-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="googleForm" src="https://docs.google.com/forms/d/e/1FAIpQLSeZD-NmCKoAsa-zmVIHwaNbwMqB7vfIYUKXDf0AYeqAYKnbNQ/viewform?usp=dialog" width="100%" height="600px" frameborder="0"></iframe>
+    
+    <div id="popupImage" class="popup-image">
+        <img src="TRIAL.png" alt="3 Days Free Trial">
+    </div>
+    
+    <div id="googlePage" class="container hidden" style="margin-top: 50px;">
+        <p>Learn more about us:</p>
+        <a class="link-button" href="https://www.google.com/search?q=trans+fit+zone&oq=tr&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIGCAEQRRg7MgYIAhBFGDkyDAgDECMYJxiABBiKBTIGCAQQRRg8MgYIBRBFGDwyBggGEEUYPDIGCAcQRRg80gEIMTAxOGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8" target="_blank">Visit Google Page</a>
+    </div>
+    
+    <script>
+        function showImageThenRedirect() {
+            document.getElementById('popupImage').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('popupImage').style.display = 'none';
+                document.getElementById('googlePage').classList.remove('hidden');
+            }, 2000);
+        }
+
+        let iframe = document.getElementById('googleForm');
+        let checkSubmission = setInterval(function() {
+            try {
+                let currentURL = iframe.contentWindow.location.href;
+                if (currentURL.includes("formResponse")) {
+                    clearInterval(checkSubmission);
+                    showImageThenRedirect();
+                }
+            } catch (error) {
+                console.log("Cross-origin restriction, assuming form submitted.");
+                clearInterval(checkSubmission);
+                showImageThenRedirect();
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
